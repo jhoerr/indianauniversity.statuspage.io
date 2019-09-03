@@ -2,6 +2,10 @@
 .component-container {
   text-align: left;
 }
+.layout-content.status.status-index .components-section .component-container .name {
+  max-width: 100%;
+}
+
 button.component-container:focus {
   outline: none;
   border: 1px solid #006298 !important;
