@@ -96,6 +96,7 @@
         });
 
         $(subscribeButtonId).addClass('rvt-button')
+        $(subscribeButtonId).attr('aria-label', "Subscribe to All Incidents")
 
 
         // add role="group" and data-accordion to .components-container 
@@ -122,6 +123,9 @@
             const button = $(this).find(accordionButtonClass).first();
             button.attr('id', buttonId) 
             button.attr('data-collapsible', contentId) 
+            // make buttons titles accessible
+            const name = button.find('.name').children()[1]
+            button.attr('aria-label', name.innerText)
             const content = $(this).find(accordionContentClass).first()
             content.attr('id', contentId);
             content.attr('aria-labelledby', buttonId);
