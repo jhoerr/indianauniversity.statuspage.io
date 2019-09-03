@@ -134,6 +134,11 @@
             children.wrap('<p class="rvt-m-all-remove"></p>').appendTo(content);
         });
 
+        // make element IDs unique
+        $.each($("input[id^='incident_code']"), function (ind) {
+            $(this).attr('id',`incident_code-${ind}`);
+        });
+
 
     });
 </script>
