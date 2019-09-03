@@ -6,6 +6,11 @@
   max-width: 100%;
 }
 
+.layout-content.status.status-index .components-section .component-container,
+.layout-content.status.status-index .components-section .component-container.is-group {
+  padding: .75rem;
+}
+
 button.component-container:focus {
   outline: none;
   border: 1px solid #006298 !important;
