@@ -1,0 +1,35 @@
+/* CUSTOM STYLES */
+.component-container {
+  text-align: left;
+}
+button.component-container:focus {
+  outline: none;
+  border: 1px solid #006298 !important;
+}
+.activate-page-prompt {
+  background-color: #ffeecd;
+  color: #584416;
+  text-shadow: none;
+}
+.activate-page-prompt a {
+  color: #006298;
+}
+small, .layout-content.status .table-row .date, .color-secondary, .layout-content.status .grouped-items-selector.inline .grouped-item, .layout-content.status.status-full-history .history-footer .pagination a.disabled, .layout-content.status.status-full-history .history-nav a {
+  color: #666;
+}
+.layout-content.status.status-index .unresolved-incidents .unresolved-incident 	.incident-title a:focus {
+  outline: .125rem solid #ffffff;
+  outline-offset: .125rem;
+}
+
+#subscribe-all {
+  right: 2em;
+}
+
+.updates-dropdown-container .updates-dropdown {
+  right: 0;
+}
+
+.updates-dropdown-container .show-updates-dropdown:after {
+    content: 'Subscribe';
+}
