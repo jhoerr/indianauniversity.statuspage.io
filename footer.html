@@ -39,7 +39,6 @@
         tabAttrs['data-js-hook'] = 'component-group-opener';
 
         // add data-collapsible="details" aria-expanded="true"
-        tabAttrs['data-collapsible'] = 'details';
         tabAttrs['aria-expanded'] = false;
 
 
@@ -104,15 +103,32 @@
         const accordion = $(accordionClass);
         accordion.attr('data-accordion', '');
         accordion.attr('role', 'group');
+        accordion.attr('aria-expanded', 'false');
         accordion.addClass('rvt-collapsible-accordion');
 
         // wrap accordion buttons with <div class="rvt-collapsible rvt-collapsible--panel"></div>
-
         const accordionButtonClass = "button.component-container";
-
         const accordionButton = $(accordionButtonClass);
+        accordionButton.wrap('<div class="rvt-collapsible rvt-collapsible--panel"><h3 class="rvt-collapsible__title"></h3><div class="rvt-collapsible__content" aria-hidden="true"></div></div>');
 
-        accordionButton.wrap('<div class="rvt-collapsible rvt-collapsible--panel"><h3 class="rvt-collapsible__title"></h3></div>');
+        // associate panel buttons with content and move component statuses into the content area.
+        const accordionPanelClass = '.rvt-collapsible--panel';
+        const accordionTitleClass = '.rvt-collapsible__title';
+        const accordionContentClass = '.rvt-collapsible__content';
+        $.each($(accordionPanelClass), function (ind) {
+            // associate the button with the content.
+            const buttonId = `component-${ind}-label`
+            const contentId = `component-${ind}`
+            const button = $(this).find(accordionButtonClass).first();
+            button.attr('id', buttonId) 
+            button.attr('data-collapsible', contentId) 
+            const content = $(this).find(accordionContentClass).first()
+            content.attr('id', contentId);
+            content.attr('aria-labelledby', buttonId);
+            // move the children from the button element to the content element
+            const children = button.find(".child-components-container").first().detach();
+            children.wrap('<p class="rvt-m-all-remove"></p>').appendTo(content);
+        });
 
 
     });
@@ -120,3 +136,4 @@
 
 <script src="https://cdn.jsdelivr.net/npm/rivet-uits/js/rivet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/rivet-collapsible/dist/js/rivet-collapsible.min.js"></script>
+<script>Collapsible.init();</script>
