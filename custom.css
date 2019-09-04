@@ -14,7 +14,9 @@
 .layout-content.status.status-index .components-section .component-container .name {
   max-width: 100%;
 }
-
+.layout-content.status.status-index .components-section .component-container .component-status {
+  font-size: 100%
+}
 .layout-content.status.status-index .components-section .component-container,
 .layout-content.status.status-index .components-section .component-container.is-group {
   padding: .75rem;
