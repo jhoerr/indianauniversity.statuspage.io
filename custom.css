@@ -2,6 +2,15 @@
 .component-container {
   text-align: left;
 }
+.component-inner-container {
+  width: 100%;
+}
+.component-status {
+  float: right;
+}
+.tool.icon-indicator {
+  display: none;
+}
 .layout-content.status.status-index .components-section .component-container .name {
   max-width: 100%;
 }
