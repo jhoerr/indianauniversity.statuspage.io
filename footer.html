@@ -139,6 +139,15 @@
             $(this).attr('id',`incident_code-${ind}`);
         });
 
+        // adjust the padding on the component statuses
+        $.each($('.child-components-container'), function () {
+            $(this)
+                .find('.component-inner-container')                    
+                .slice(0,-1) // take all but the last one
+                .addClass('rvt-p-bottom-sm') 
+        });
+
+
 
     });
 </script>
