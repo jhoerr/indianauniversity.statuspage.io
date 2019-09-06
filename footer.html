@@ -62,12 +62,12 @@
             });
 
 
-        $('meta[name="viewport"]').attr('content', 'width=device-width, initial-scale=1.0, minimum-scale=1.0');
             $(removeDataAttributesFrom).replaceWith(function () {
                 return $("<div />", classes).append($(this).contents());
             });
         }
 
+        $('meta[name=viewport]').attr('content', 'width=device-width, initial-scale=1.0, minimum-scale=1.0');
         $('.container').attr('role', 'main').attr('id', 'main-content')
 
 
