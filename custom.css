@@ -46,7 +46,12 @@ button.component-container:focus {
   color: #006298;
 }
 
+.layout-content.status.status-index .unresolved-incidents .unresolved-incident .incident-title a {
+  text-decoration: underline;
+}
+
 .layout-content.status.status-index .unresolved-incidents .unresolved-incident .incident-title a:focus {
+  text-decoration: none;
   outline: .125rem solid #ffffff;
   outline-offset: .125rem;
 }
