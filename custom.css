@@ -67,3 +67,9 @@ button.component-container:focus {
 .updates-dropdown-container .show-updates-dropdown:after {
   content: 'Subscribe';
 }
+
+.subscribe,
+.subscribe-button {
+  display: none;
+}
+
