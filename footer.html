@@ -73,7 +73,6 @@
 
         // move the subscribe to all updates button to the header
         const updateElementClass = 'updates-dropdown-container';
-
         const headerElementId = '#subscribe-all';
         const subscribeButtonId = '#show-updates-dropdown'
 
@@ -106,13 +105,12 @@
         const accordion = $(accordionClass);
         accordion.attr('data-accordion', '');
         accordion.attr('role', 'group');
-        accordion.attr('aria-expanded', 'false');
         accordion.addClass('rvt-collapsible-accordion');
 
         // wrap accordion buttons with <div class="rvt-collapsible rvt-collapsible--panel"></div>
         const accordionButtonClass = "button.component-container";
         const accordionButton = $(accordionButtonClass);
-        accordionButton.wrap('<div class="rvt-collapsible rvt-collapsible--panel"><h3 class="rvt-collapsible__title"></h3><div class="rvt-collapsible__content" aria-hidden="true"></div></div>');
+        accordionButton.wrap('<div class="rvt-collapsible rvt-collapsible--panel"><h3 class="rvt-collapsible__title"></h3><div class="rvt-collapsible__content"></div></div>');
 
         // associate panel buttons with content and move component statuses into the content area.
         const accordionPanelClass = '.rvt-collapsible--panel';
@@ -131,6 +129,15 @@
             const content = $(this).find(accordionContentClass).first()
             content.attr('id', contentId);
             content.attr('aria-labelledby', buttonId);
+            // make buttons titles accessible
+            const name = button.find('.name').children()[1]
+            button.attr('aria-label', name.innerText)
+            // default to open/closed based on operational status.
+            const status = button.find('.component-status').first()
+            const operational = status.text().trim() === "Operational"
+            button.attr('aria-expanded', operational ? 'false' : 'true')
+            button.addClass(operational ? '' : 'open')
+            content.attr('aria-hidden', operational ? 'true' : 'false')
             // move the children from the button element to the content element
             const children = button.find(".child-components-container").first().detach();
             children.wrap('<p class="rvt-m-all-remove"></p>').appendTo(content);
