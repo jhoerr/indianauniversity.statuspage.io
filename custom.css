@@ -2,12 +2,15 @@
 .component-container {
   text-align: left;
 }
+
 .component-inner-container {
   width: 100%;
 }
+
 .component-status {
   float: right;
 }
+
 .tool.icon-indicator {
   display: none;
 }
@@ -19,9 +22,11 @@ small, .small {
 .layout-content.status.status-index .components-section .component-container .name {
   max-width: 100%;
 }
+
 .layout-content.status.status-index .components-section .component-container .component-status {
   font-size: 100%
 }
+
 .layout-content.status.status-index .components-section .component-container,
 .layout-content.status.status-index .components-section .component-container.is-group {
   padding: .75rem;
@@ -31,6 +36,7 @@ button.component-container:focus {
   outline: none;
   border: 1px solid #006298 !important;
 }
+
 .activate-page-prompt {
   background-color: #ffeecd;
   color: #584416;
@@ -39,7 +45,8 @@ button.component-container:focus {
 .activate-page-prompt a {
   color: #006298;
 }
-.layout-content.status.status-index .unresolved-incidents .unresolved-incident 	.incident-title a:focus {
+
+.layout-content.status.status-index .unresolved-incidents .unresolved-incident .incident-title a:focus {
   outline: .125rem solid #ffffff;
   outline-offset: .125rem;
 }
@@ -53,5 +60,5 @@ button.component-container:focus {
 }
 
 .updates-dropdown-container .show-updates-dropdown:after {
-    content: 'Subscribe';
+  content: 'Subscribe';
 }
