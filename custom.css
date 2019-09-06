@@ -73,3 +73,6 @@ button.component-container:focus {
   display: none;
 }
 
+.tooltipster-content {
+  max-width: 400px;
+}
