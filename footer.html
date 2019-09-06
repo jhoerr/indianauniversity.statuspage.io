@@ -24,49 +24,49 @@
 </footer>
 <script>
     $(function () {
-
         // the attributes to add
-        const tabAttrs = {};
         const tabTrigger = '.component-container';
-        const removeDataAttributesFrom = '.component-inner-container';
 
-        // get all of the attributes of the tab trigger
-        $.each($(tabTrigger)[0].attributes, function (idx, attr) {
-            tabAttrs[attr.nodeName] = attr.nodeValue;
-        });
-
-        // add a js-hook
-        tabAttrs['data-js-hook'] = 'component-group-opener';
-
-        // add data-collapsible="details" aria-expanded="true"
-        tabAttrs['aria-expanded'] = false;
-
-
-        const classes = {};
-        $.each($(removeDataAttributesFrom)[0].attributes, function (idx, attr) {
-            if (attr.nodeName === 'class') {
-                classes[attr.nodeName] = attr.nodeValue;
-            }
-            if (attr.nodeName === 'data-component-status') {
+        if ($(tabTrigger).length){
+            const tabAttrs = {};
+            // get all of the attributes of the tab trigger
+            $.each($(tabTrigger)[0].attributes, function (idx, attr) {
                 tabAttrs[attr.nodeName] = attr.nodeValue;
-            }
-        });
+            });
 
-        $(tabTrigger).replaceWith(function () {
-            return $("<button />", tabAttrs).append($(this).contents());
-        });
+            // add a js-hook
+            tabAttrs['data-js-hook'] = 'component-group-opener';
 
-
-        $(tabTrigger).click(function () {
-            $(this).toggleClass('open');
-        });
+            // add data-collapsible="details" aria-expanded="true"
+            tabAttrs['aria-expanded'] = false;
 
 
-        $(removeDataAttributesFrom).replaceWith(function () {
-            return $("<div />", classes).append($(this).contents());
-        });
+            const classes = {};
+            const removeDataAttributesFrom = '.component-inner-container';
+            $.each($(removeDataAttributesFrom)[0].attributes, function (idx, attr) {
+                if (attr.nodeName === 'class') {
+                    classes[attr.nodeName] = attr.nodeValue;
+                }
+                if (attr.nodeName === 'data-component-status') {
+                    tabAttrs[attr.nodeName] = attr.nodeValue;
+                }
+            });
+
+            $(tabTrigger).replaceWith(function () {
+                return $("<button />", tabAttrs).append($(this).contents());
+            });
+
+
+            $(tabTrigger).click(function () {
+                $(this).toggleClass('open');
+            });
+
 
         $('meta[name="viewport"]').attr('content', 'width=device-width, initial-scale=1.0, minimum-scale=1.0');
+            $(removeDataAttributesFrom).replaceWith(function () {
+                return $("<div />", classes).append($(this).contents());
+            });
+        }
 
         $('.container').attr('role', 'main').attr('id', 'main-content')
 
