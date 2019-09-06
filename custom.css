@@ -11,6 +11,11 @@
 .tool.icon-indicator {
   display: none;
 }
+
+small, .small {
+  color: #666;
+}
+
 .layout-content.status.status-index .components-section .component-container .name {
   max-width: 100%;
 }
@@ -33,9 +38,6 @@ button.component-container:focus {
 }
 .activate-page-prompt a {
   color: #006298;
-}
-small, .layout-content.status .table-row .date, .color-secondary, .layout-content.status .grouped-items-selector.inline .grouped-item, .layout-content.status.status-full-history .history-footer .pagination a.disabled, .layout-content.status.status-full-history .history-nav a {
-  color: #666;
 }
 .layout-content.status.status-index .unresolved-incidents .unresolved-incident 	.incident-title a:focus {
   outline: .125rem solid #ffffff;
