@@ -97,6 +97,9 @@
         $(subscribeButtonId).addClass('rvt-button')
         $(subscribeButtonId).attr('aria-label', "Subscribe to All Incidents")
 
+        // remove per-incident subscription button.
+        $('.subscribe').remove()
+
         // add role="group" and data-accordion to .components-container 
         const accordionClass = '.components-container'
         const accordion = $(accordionClass);
