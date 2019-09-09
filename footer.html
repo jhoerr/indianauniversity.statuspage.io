@@ -160,3 +160,9 @@
 <script src="https://cdn.jsdelivr.net/npm/rivet-uits/js/rivet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/rivet-collapsible/dist/js/rivet-collapsible.min.js"></script>
 <script>Collapsible.init();</script>
+<script>
+    // disable page auto-refresh
+    $.ajaxSetup({
+        beforeSend: function () { return false; }
+    });
+</script>
