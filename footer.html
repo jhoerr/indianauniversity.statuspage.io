@@ -156,6 +156,64 @@
         // a11y: label navigation buttons
         $('.previous-page').attr('aria-label', "Previous Incidents");
         $('.next-page').attr('aria-label', "Next Incidents");
+        // a11y: adjust landing page tags
+        const landingPage = 'body.index'
+        //  remove past incidents
+        $(landingPage)
+            .find('.incidents-list')
+            .remove()
+        //  active incidents
+        $(landingPage)
+            .find('.unresolved-incidents')
+            .prepend('<h2 class="font-largest rvt-m-bottom-sm">Active Incidents</h2>')
+        $(landingPage)
+            .find('.unresolved-incidents')
+            .find('.incident-title')
+            .wrapInner('<h3 class="font-large"></h3>')
+        $(landingPage)
+            .find('.update strong')
+            .wrap('<h4 class="incident-status"></h4>')
+        //  components
+        $(landingPage)
+            .find('.components-section')
+            .prepend('<h2 class="font-largest rvt-m-bottom-sm">Services</h2>')
+        //  maintenance
+        $(landingPage)
+            .find('.scheduled-maintenances-container')
+            .children()
+            .first()
+            .replaceWith('<h2 class="font-largest">Scheduled Maintenance</h2>')
+
+            // a11y: adjust history page tags
+        //   make 'Incident History' an h2
+        const historyPage = 'body.history'
+        $(historyPage)
+            .find('h4')
+            .first()
+            .replaceWith(`<h2 class="font-largest rvt-m-bottom-sm">Incident History</h2>`)
+        //   make dates an h3
+        $(historyPage)
+            .find('h4')
+            .each(function() {
+                $(this).replaceWith(`<h3 class="month-title font-large border-color">${$(this)[0].innerText}</h3>`)
+            });
+        //   make incident titles an h4
+        $(historyPage)
+            .find('.incident-title')
+            .wrap('<h4></h4>')
+
+        // a11y: adjust incident page tags
+        // make the incident name an h2
+        const incidentPage = 'body.incident'
+        $(incidentPage)
+            .find('.incident-name')
+            .each(function(){
+                $(this).replaceWith(`<h2 class="${$(this)[0].className}">${$(this)[0].innerText}</h3>`)    
+            })
+        // make incident status an h3
+        $(incidentPage)
+            .find('.update-title')
+            .wrapInner('<h3 class="incident-status"></h4>')
 
     });
 </script>

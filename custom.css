@@ -15,6 +15,10 @@
   display: none;
 }
 
+h3 small {
+  font-size: 1rem;
+}
+
 small, .small {
   color: #666;
 }
@@ -75,4 +79,9 @@ button.component-container:focus {
 
 .tooltipster-content {
   max-width: 400px;
+}
+
+.incident-status {
+  display: inline-block;
+  line-height: 0;
 }
