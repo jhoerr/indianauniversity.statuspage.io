@@ -23,7 +23,7 @@
     </ul>
 </footer>
 <script>
-    $(function () {
+    function makeAccordionAccessible() {
         const componentContainer = '.component-container';
         const componentInnerContainer = '.component-inner-container';
         $(componentContainer).each(function () {
@@ -34,7 +34,7 @@
                 'data-js-hook': 'component-group-opener',
                 'aria-expanded': false
             };
-            $.each(outer[0].attributes, function(idx, a) {
+            $.each(outer[0].attributes, function (idx, a) {
                 attrs[a.nodeName] = a.nodeValue;
             });
             $.each(inner[0].attributes, function (idx, a) {
@@ -44,12 +44,16 @@
             });
             inner.replaceWith($("<div />", classes).append(inner.contents()))
             outer.replaceWith($("<button />", attrs).append(outer.contents()))
+            outer.click(function () { $(this).toggleClass('open') })
         })
+    }
 
+    function makeContainerAccessible() {
         $('meta[name=viewport]').attr('content', 'width=device-width, initial-scale=1.0, minimum-scale=1.0');
         $('.container').attr('role', 'main').attr('id', 'main-content')
+    }
 
-
+    function moveSubscribeButtonToHeader() {
         // move the subscribe to all updates button to the header
         const updateElementClass = 'updates-dropdown-container';
         const headerElementId = '#subscribe-all';
@@ -74,11 +78,10 @@
         });
 
         $(subscribeButtonId).addClass('rvt-button')
-        $(subscribeButtonId).attr('aria-label', "Subscribe to All Incidents")
+        $(subscribeButtonId).attr('aria-label', "Subscribe to All Updates")
+    }
 
-        // remove per-incident subscription button.
-        $('.subscribe').remove()
-
+    function rivetizeAccordion() {
         // add role="group" and data-accordion to .components-container 
         const accordionClass = '.components-container'
         const accordion = $(accordionClass);
@@ -108,35 +111,47 @@
             // make buttons titles accessible
             const name = button.find('.name').children()[1]
             button.attr('aria-label', name.innerText)
-            // default to open/closed based on operational status.
-            const status = button.find('.component-status').first()
-            const operational = status.text().trim() === "Operational"
-            button.attr('aria-expanded', operational ? 'false' : 'true')
-            button.addClass(operational ? '' : 'open')
+            // default to open/closed based on defaultClosed status.
+            const isClosed = button.find('.component-status').first().text().trim() === "Operational"
+            button.attr('aria-expanded', isClosed ? 'false' : 'true')
+            button.addClass(isClosed ? '' : 'open')
+            content.attr('aria-hidden', isClosed ? 'true' : 'false')
             button.click(function () { $(this).toggleClass('open') })
-
-            content.attr('aria-hidden', operational ? 'true' : 'false')
             // move the children from the button element to the content element
             const children = button.find(".child-components-container").first().detach();
             children.wrap('<p class="rvt-m-all-remove"></p>').appendTo(content);
         });
 
-        // make element IDs unique
-        $.each($("input[id^='incident_code']"), function (ind) {
-            $(this).attr('id',`incident_code-${ind}`);
-        });
-
         // adjust the padding on the component statuses
         $.each($('.child-components-container'), function () {
             $(this)
-                .find('.component-inner-container')                    
-                .slice(0,-1) // take all but the last one
-                .addClass('rvt-p-bottom-sm') 
+                .find('.component-inner-container')
+                .slice(0, -1) // take all but the last one
+                .addClass('rvt-p-bottom-sm')
         });
 
-        // a11y: label navigation buttons
+        // Initialize the rivet collapsible.
+        Collapsible.init();
+    }
+
+    function makeElementIdsUnique() {
+        $.each($("input[id^='incident_code']"), function (ind) {
+            $(this).attr('id', `incident_code-${ind}`);
+        });
+    }
+
+    function makeNavigationAccessible() {
         $('.previous-page').attr('aria-label', "Previous Incidents");
         $('.next-page').attr('aria-label', "Next Incidents");
+    }
+
+    function disableAutorefresh() {
+        $.ajaxSetup({
+            beforeSend: function () { return false; }
+        });
+    }
+
+    function makeHeadingsAccessible() {
         // a11y: adjust landing page tags
         const landingPage = 'body.index'
         //  remove past incidents
@@ -169,7 +184,7 @@
             .find('.incident-title')
             .wrapInner('<h3 class="font-large"></h3>')
 
-            // a11y: adjust history page tags
+        // a11y: adjust history page tags
         //   make 'Incident History' an h2
         const historyPage = 'body.history'
         $(historyPage)
@@ -179,7 +194,7 @@
         //   make dates an h3
         $(historyPage)
             .find('h4')
-            .each(function() {
+            .each(function () {
                 $(this).replaceWith(`<h3 class="month-title font-large border-color">${$(this)[0].innerText}</h3>`)
             });
         //   make incident titles an h4
@@ -192,23 +207,28 @@
         const incidentPage = 'body.incident'
         $(incidentPage)
             .find('.incident-name')
-            .each(function(){
-                $(this).replaceWith(`<h2 class="${$(this)[0].className}">${$(this)[0].innerText}</h3>`)    
+            .each(function () {
+                $(this).replaceWith(`<h2 class="${$(this)[0].className}">${$(this)[0].innerText}</h3>`)
             })
         // make incident status an h3
         $(incidentPage)
             .find('.update-title')
             .wrapInner('<h3 class="incident-status"></h4>')
+    }
 
+    $(function () {
+        // Accessibility fixes
+        disableAutorefresh();
+        makeAccordionAccessible();
+        makeContainerAccessible();
+        makeHeadingsAccessible();
+        makeNavigationAccessible();
+        makeElementIdsUnique();
+                
+        // IU-specific presentation changes
+        moveSubscribeButtonToHeader();
+        rivetizeAccordion();
     });
 </script>
-
 <script src="https://cdn.jsdelivr.net/npm/rivet-uits/js/rivet.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/rivet-collapsible/dist/js/rivet-collapsible.min.js"></script>
-<script>Collapsible.init();</script>
-<script>
-    // disable page auto-refresh
-    $.ajaxSetup({
-        beforeSend: function () { return false; }
-    });
-</script>
