@@ -24,48 +24,27 @@
 </footer>
 <script>
     $(function () {
-        // the attributes to add
-        const tabTrigger = '.component-container';
-
-        if ($(tabTrigger).length){
-            const tabAttrs = {};
-            // get all of the attributes of the tab trigger
-            $.each($(tabTrigger)[0].attributes, function (idx, attr) {
-                tabAttrs[attr.nodeName] = attr.nodeValue;
-            });
-
-            // add a js-hook
-            tabAttrs['data-js-hook'] = 'component-group-opener';
-
-            // add data-collapsible="details" aria-expanded="true"
-            tabAttrs['aria-expanded'] = false;
-
-
+        const componentContainer = '.component-container';
+        const componentInnerContainer = '.component-inner-container';
+        $(componentContainer).each(function () {
+            const outer = $(this)
+            const inner = $(this).find(componentInnerContainer).first()
             const classes = {};
-            const removeDataAttributesFrom = '.component-inner-container';
-            $.each($(removeDataAttributesFrom)[0].attributes, function (idx, attr) {
-                if (attr.nodeName === 'class') {
-                    classes[attr.nodeName] = attr.nodeValue;
-                }
-                if (attr.nodeName === 'data-component-status') {
-                    tabAttrs[attr.nodeName] = attr.nodeValue;
-                }
+            const attrs = {
+                'data-js-hook': 'component-group-opener',
+                'aria-expanded': false
+            };
+            $.each(outer[0].attributes, function(idx, a) {
+                attrs[a.nodeName] = a.nodeValue;
             });
-
-            $(tabTrigger).replaceWith(function () {
-                return $("<button />", tabAttrs).append($(this).contents());
+            $.each(inner[0].attributes, function (idx, a) {
+                const name = a.nodeName, value = a.nodeValue;
+                if (name === 'class') { classes[name] = value; }
+                if (name === 'data-component-status') { attrs[name] = value; }
             });
-
-
-            $(tabTrigger).click(function () {
-                $(this).toggleClass('open');
-            });
-
-
-            $(removeDataAttributesFrom).replaceWith(function () {
-                return $("<div />", classes).append($(this).contents());
-            });
-        }
+            inner.replaceWith($("<div />", classes).append(inner.contents()))
+            outer.replaceWith($("<button />", attrs).append(outer.contents()))
+        })
 
         $('meta[name=viewport]').attr('content', 'width=device-width, initial-scale=1.0, minimum-scale=1.0');
         $('.container').attr('role', 'main').attr('id', 'main-content')
@@ -134,6 +113,8 @@
             const operational = status.text().trim() === "Operational"
             button.attr('aria-expanded', operational ? 'false' : 'true')
             button.addClass(operational ? '' : 'open')
+            button.click(function () { $(this).toggleClass('open') })
+
             content.attr('aria-hidden', operational ? 'true' : 'false')
             // move the children from the button element to the content element
             const children = button.find(".child-components-container").first().detach();
