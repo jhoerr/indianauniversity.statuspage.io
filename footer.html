@@ -164,6 +164,10 @@
             .children()
             .first()
             .replaceWith('<h2 class="font-largest">Scheduled Maintenance</h2>')
+        $(landingPage)
+            .find('.scheduled-maintenances-container')
+            .find('.incident-title')
+            .wrapInner('<h3 class="font-large"></h3>')
 
             // a11y: adjust history page tags
         //   make 'Incident History' an h2
