@@ -7,12 +7,17 @@
   width: 100%;
 }
 
-.component-status {
-  float: right;
+.component-status,
+.layout-content.status.status-index .components-section .components-container.one-column .component-container .component-status {
+  display: none;
 }
 
 .tool.icon-indicator {
-  display: none;
+  float: right;
+}
+.layout-content.status.status-index .components-section .components-container.one-column .component-container .icon-indicator {
+  display:block;
+  top: 1rem
 }
 
 h3 small {
@@ -25,10 +30,6 @@ small, .small {
 
 .layout-content.status.status-index .components-section .component-container .name {
   max-width: 100%;
-}
-
-.layout-content.status.status-index .components-section .component-container .component-status {
-  font-size: 100%
 }
 
 .layout-content.status.status-index .components-section .component-container,
